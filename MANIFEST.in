@@ -1,0 +1,2 @@
+include versioneer.py
+include pyhomogeneity/_version.py
