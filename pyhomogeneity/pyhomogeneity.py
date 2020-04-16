@@ -1,6 +1,6 @@
 """
 Created on 13 April 2020
-Last Update on 15 April 2020
+Last Update on 16 April 2020
 @author: Md. Manjurul Hussain Shourov
 version: 0.1
 Approach: Vectorisation
@@ -15,6 +15,14 @@ from collections import namedtuple
 # Supporting Functions
 # Data Preprocessing
 def __preprocessing(x):
+    try:
+        if x.index.dtype != 'int64':
+            idx = x.index.astype('str')
+        else:
+            idx = np.asarray(range(1, len(x)+1))
+    except:
+        idx = np.asarray(range(1, len(x)+1))
+        
     x = np.asarray(x)
     dim = x.ndim
     
@@ -31,23 +39,26 @@ def __preprocessing(x):
     else:
         print('Please check your dataset.')
         
-    return x, c
+    return x, c, idx
 
 
 # Missing Values Analysis
-def __missing_values_analysis(x, method = 'skip'):
+def __missing_values_analysis(x, idx, method = 'skip'):
     if method.lower() == 'skip':
         if x.ndim == 1:
+            idx = idx[~np.isnan(x)]
             x = x[~np.isnan(x)]
             
         else:
+            idx = idx[~np.isnan(x).any(axis=1)]
             x = x[~np.isnan(x).any(axis=1)]
-    
+            
     n = len(x)
     
-    return x, n
+    return x, n, idx
 
 
+# Pettitt test
 def __pettitt(x):
     n = len(x)
     r = rankdata(x)
@@ -60,6 +71,7 @@ def __pettitt(x):
     return U.max(), U.argmax() + 1
 
 
+# SNHT test
 def __snht(x):
     n = len(x)
     k = np.arange(1, n)
@@ -73,6 +85,7 @@ def __snht(x):
     return T.max() , T.argmax() + 1
 
 
+# Buishad Q statistics test
 def __buishand_q(x, alpha=0.05):
     n = len(x)
     
@@ -85,18 +98,20 @@ def __buishand_q(x, alpha=0.05):
     return Q, abs(S).argmax() + 1
 
 
+# Buishad range test
 def __buishand_range(x, alpha=0.05):
     n = len(x)
     
     k = np.arange(1, n+1)
     S = x.cumsum() - k * x.mean()
         
-    S_std = S  / x.std(ddof=1) # should use sample std -> x.std()
+    S_std = S  / x.std() # should use sample std -> x.std()
     R = (S_std.max() - S_std.min()) / np.sqrt(n)
     
     return R, abs(S).argmax() + 1
 
 
+# Buishad likelihood ratio test
 def __buishand_lr(x, alpha=0.05):
     n = len(x)
     
@@ -108,18 +123,20 @@ def __buishand_lr(x, alpha=0.05):
     return V.max(), abs(S).argmax() + 1
 
 
+# Buishad U statistics test
 def __buishand_u(x):
     n = len(x)
     
     k = np.arange(1, n+1)
     S = x.cumsum() - k * x.mean()
         
-    S_std = S  / x.std(ddof=1) # should use sample std -> x.std()
+    S_std = S  / x.std() # should use sample std -> x.std()
     U = (S_std[:n-1]**2).sum() / (n * (n + 1))
     
     return U, abs(S).argmax() + 1
 
 
+# Monte carlo simulation for p-value calculation
 def __mc_p_value(func, stat, n, sim): 
     rand_data = np.random.normal(0, 1, [sim, n])
     res = np.asarray(list(map(func, rand_data)))
@@ -128,16 +145,19 @@ def __mc_p_value(func, stat, n, sim):
     return p_val
 
 
+# Mean calculation
 def __mean(x, loc):
+    mu = namedtuple('mean',['mu1', 'mu2'])
     mu1 = x[:loc].mean()
     mu2 = x[loc:].mean()
     
-    return mu1, mu2
+    return mu(mu1, mu2)
 
 
+# Homogeneity test
 def __test(func, x, alpha, sim):
-    x, c = __preprocessing(x)
-    x, n = __missing_values_analysis(x, method = 'skip')
+    x, c, idx = __preprocessing(x)
+    x, n, idx = __missing_values_analysis(x, idx, method = 'skip')
     
     stat, loc = func(x)
     
@@ -148,180 +168,162 @@ def __test(func, x, alpha, sim):
         p = None
         h = None
     
-    mu1, mu2 = __mean(x, loc)
+    mu = __mean(x, loc)
     
-    return stat, loc, h, p, mu1, mu2
+    return h, idx[loc-1], p, stat, mu
 
 
 def pettitt_test(x, alpha = 0.05, sim = None):
     """
-    This function checks homogeneity test using Pettitt, A. N. (1979) method.
+    This function checks homogeneity test using A. N. Pettitt's (1979) method.
     Input:
         x: a vector (list, numpy array or pandas series) data
         alpha: significance level (0.05 default)
-        sim: no. of monte carlo simulation for p-value calculation
+        sim: no. of monte carlo simulation for p-value calculation. If sim=None, then it calculated approx. p-value.
     Output:
-        trend: tells the trend (increasing, decreasing or no trend)
-        h: True (if trend is present) or False (if trend is absence)
+        h: True (if data is nonhomogeneous) or False (if data is homogeneous)
+        loc: break point location index
         p: p-value of the significance test
-        z: normalized test statistics
-        Tau: Kendall Tau
-        s: Mann-Kendal's score
-        var_s: Variance S
-        slope: sen's slope
+        U: Maximum of Pettitt's U Statistics
+        mean: mean values at before and after break point
     Examples
     --------
       >>> import pyhomogeneity as hg
       >>> x = np.random.rand(1000)
-      >>> trend,h,p,z,tau,s,var_s,slope = hm.pettitt_test(x, 0.05)
+      >>> h, loc, p, U, mu = hg.pettitt_test(x, 0.05)
     """
-    res = namedtuple('Pettitt_Test', ['trend', 'h', 'p', 'z', 'Tau', 's', 'var_s', 'slope'])
-    U, loc, h, p, mu1, mu2 = __test(__pettitt, x, alpha = 0.05, sim = sim)
+    res = namedtuple('Pettitt_Test', ['h', 'loc', 'p', 'U', 'mean'])
+    h, loc, p, U, mu = __test(__pettitt, x, alpha, sim)
     
     if not sim:
-        x, c = __preprocessing(x)
-        x, n = __missing_values_analysis(x, method = 'skip')
+        x, c, idx = __preprocessing(x)
+        x, n, idx = __missing_values_analysis(x, idx, method = 'skip')
         p = 2 * np.exp((- 6 * np.max(U)**2) / (n**3 + n**2))
         h = alpha > p
     
-    return U, loc, h, p, mu1, mu2
+    return res(h, loc, p, U, mu)
 
 
 def snht_test(x, alpha = 0.05, sim = 20000):
     """
-    This function checks homogeneity test using Pettitt, A. N. (1979) method.
+    This function checks homogeneity test using H. Alexandersson (1986) method.
     Input:
         x: a vector (list, numpy array or pandas series) data
         alpha: significance level (0.05 default)
-        sim: no. of monte carlo simulation for p-value calculation
+        sim: no. of monte carlo simulation for p-value calculation.
     Output:
-        trend: tells the trend (increasing, decreasing or no trend)
-        h: True (if trend is present) or False (if trend is absence)
+        h: True (if data is nonhomogeneous) or False (if data is homogeneous)
+        loc: break point location index
         p: p-value of the significance test
-        z: normalized test statistics
-        Tau: Kendall Tau
-        s: Mann-Kendal's score
-        var_s: Variance S
-        slope: sen's slope
+        T: Maximum of SNHT T Statistics
+        mean: mean values at before and after break point
     Examples
     --------
       >>> import pyhomogeneity as hg
       >>> x = np.random.rand(1000)
-      >>> trend,h,p,z,tau,s,var_s,slope = hm.pettitt_test(x, 0.05)
+      >>> h, loc, p, T, mu = hg.snht_test(x, 0.05)
     """
-    res = namedtuple('Pettitt_Test', ['trend', 'h', 'p', 'z', 'Tau', 's', 'var_s', 'slope'])
-    T, loc, h, p, mu1, mu2 = __test(__snht, x, alpha = 0.05, sim = sim)
+    res = namedtuple('SNHT_Test', ['h', 'loc', 'p', 'T', 'mean'])
+    h, loc, p, T, mu = __test(__snht, x, alpha, sim)
 
-    return T, loc, h, p, mu1, mu2
+    return res(h, loc, p, T, mu)
 
 
 def buishand_q_test(x, alpha = 0.05, sim = 20000):
     """
-    This function checks homogeneity test using Pettitt, A. N. (1979) method.
+    This function checks homogeneity test using Buishand's Q statistics method proposed in T. A. Buishand (1982).
     Input:
         x: a vector (list, numpy array or pandas series) data
         alpha: significance level (0.05 default)
-        sim: no. of monte carlo simulation for p-value calculation
+        sim: no. of monte carlo simulation for p-value calculation.
     Output:
-        trend: tells the trend (increasing, decreasing or no trend)
-        h: True (if trend is present) or False (if trend is absence)
+        h: True (if data is nonhomogeneous) or False (if data is homogeneous)
+        loc: break point location index
         p: p-value of the significance test
-        z: normalized test statistics
-        Tau: Kendall Tau
-        s: Mann-Kendal's score
-        var_s: Variance S
-        slope: sen's slope
+        Q: Maximum of Buishand's Q Statistics divided by squire root of sample size [Q/sqrt(n)]
+        mean: mean values at before and after break point
     Examples
     --------
       >>> import pyhomogeneity as hg
       >>> x = np.random.rand(1000)
-      >>> trend,h,p,z,tau,s,var_s,slope = hm.pettitt_test(x, 0.05)
+      >>> h, loc, p, Q, mu = hg.buishand_q_test(x, 0.05)
     """
-    res = namedtuple('Buishand_Q_Test', ['trend', 'h', 'p', 'z', 'Tau', 's', 'var_s', 'slope'])
-    Q, loc, h, p, mu1, mu2 = __test(__buishand_q, x, alpha = 0.05, sim = sim)
+    res = namedtuple('Buishand_Q_Test', ['h', 'loc', 'p', 'Q', 'mean'])
+    h, loc, p, Q, mu = __test(__buishand_q, x, alpha, sim)
 
-    return Q, loc, h, p, mu1, mu2
+    return res(h, loc, p, Q, mu)
 
 
 def buishand_range_test(x, alpha = 0.05, sim = 20000):
     """
-    This function checks homogeneity test using Pettitt, A. N. (1979) method.
+    This function checks homogeneity test using Buishand's range method proposed in T. A. Buishand (1982).
     Input:
         x: a vector (list, numpy array or pandas series) data
         alpha: significance level (0.05 default)
-        sim: no. of monte carlo simulation for p-value calculation
+        sim: no. of monte carlo simulation for p-value calculation.
     Output:
-        trend: tells the trend (increasing, decreasing or no trend)
-        h: True (if trend is present) or False (if trend is absence)
+        h: True (if data is nonhomogeneous) or False (if data is homogeneous)
+        loc: break point location index
         p: p-value of the significance test
-        z: normalized test statistics
-        Tau: Kendall Tau
-        s: Mann-Kendal's score
-        var_s: Variance S
-        slope: sen's slope
+        R: Buishand's Q Statistics range divided by squire root of sample size [R/sqrt(n)]
+        mean: mean values at before and after break point
     Examples
     --------
       >>> import pyhomogeneity as hg
       >>> x = np.random.rand(1000)
-      >>> trend,h,p,z,tau,s,var_s,slope = hm.pettitt_test(x, 0.05)
+      >>> h, loc, p, R, mu = hg.buishand_range_test(x, 0.05)
     """
-    res = namedtuple('Buishand_Range_Test', ['trend', 'h', 'p', 'z', 'Tau', 's', 'var_s', 'slope'])
-    R, loc, h, p, mu1, mu22 = __test(__buishand_range, x, alpha = 0.05, sim = sim)
+    res = namedtuple('Buishand_Range_Test', ['h', 'loc', 'p', 'R', 'mean'])
+    h, loc, p, R, mu = __test(__buishand_range, x, alpha, sim)
 
-    return R, loc, h, p, mu1, mu2
+    return res(h, loc, p, R, mu)
 
 
 def buishand_likelihood_ratio_test(x, alpha = 0.05, sim = 20000):
     """
-    This function checks homogeneity test using Pettitt, A. N. (1979) method.
+    This function checks homogeneity test using Buishand's likelihood ration method proposed in T. A. Buishand (1982).
     Input:
         x: a vector (list, numpy array or pandas series) data
         alpha: significance level (0.05 default)
-        sim: no. of monte carlo simulation for p-value calculation
+        sim: no. of monte carlo simulation for p-value calculation.
     Output:
-        trend: tells the trend (increasing, decreasing or no trend)
-        h: True (if trend is present) or False (if trend is absence)
+        h: True (if data is nonhomogeneous) or False (if data is homogeneous)
+        loc: break point location index
         p: p-value of the significance test
-        z: normalized test statistics
-        Tau: Kendall Tau
-        s: Mann-Kendal's score
-        var_s: Variance S
-        slope: sen's slope
+        V: Maximum of Buishand's weighted adjusted partial sum Z
+        mean: mean values at before and after break point
     Examples
     --------
       >>> import pyhomogeneity as hg
       >>> x = np.random.rand(1000)
-      >>> trend,h,p,z,tau,s,var_s,slope = hm.pettitt_test(x, 0.05)
+      >>> h, loc, p, V, mu = hg.buishand_range_test(x, 0.05)
     """
-    res = namedtuple('Buishand_Likelihood_Ratio_Test', ['trend', 'h', 'p', 'z', 'Tau', 's', 'var_s', 'slope'])
-    V, loc, h, p, mu1, mu22 = __test(__buishand_lr, x, alpha = 0.05, sim = sim)
+    res = namedtuple('Buishand_Likelihood_Ratio_Test', ['h', 'loc', 'p', 'V', 'mean'])
+    h, loc, p, V, mu = __test(__buishand_lr, x, alpha, sim)
 
-    return V, loc, h, p, mu1, mu2
+    return res(h, loc, p, V, mu)
 
 
 def buishand_u_test(x, alpha = 0.05, sim = 20000):
     """
-    This function checks homogeneity test using Pettitt, A. N. (1979) method.
+    This function checks homogeneity test using Buishand's U statistics method method proposed in T. A. Buishand (1982).
     Input:
         x: a vector (list, numpy array or pandas series) data
         alpha: significance level (0.05 default)
-        sim: no. of monte carlo simulation for p-value calculation
+        sim: no. of monte carlo simulation for p-value calculation.
     Output:
-        trend: tells the trend (increasing, decreasing or no trend)
-        h: True (if trend is present) or False (if trend is absence)
+        h: True (if data is nonhomogeneous) or False (if data is homogeneous)
+        loc: break point location index
         p: p-value of the significance test
-        z: normalized test statistics
-        Tau: Kendall Tau
-        s: Mann-Kendal's score
-        var_s: Variance S
-        slope: sen's slope
+        V: Maximum of Buishand's U Statistics
+        mean: mean values at before and after break point
     Examples
     --------
       >>> import pyhomogeneity as hg
       >>> x = np.random.rand(1000)
-      >>> trend,h,p,z,tau,s,var_s,slope = hm.pettitt_test(x, 0.05)
+      >>> h, loc, p, U, mu = hg.buishand_u_test(x, 0.05)
     """
-    res = namedtuple('Buishand_U_Test', ['trend', 'h', 'p', 'z', 'Tau', 's', 'var_s', 'slope'])
-    U, loc, h, p, mu1, mu2 = __test(__buishand_u, x, alpha = 0.05, sim = sim)
+    res = namedtuple('Buishand_U_Test', ['h', 'loc', 'p', 'U', 'mean'])
+    h, loc, p, U, mu = __test(__buishand_u, x, alpha, sim)
 
-    return U, loc, h, p, mu1, mu2
+    return res(h, loc, p, U, mu)
