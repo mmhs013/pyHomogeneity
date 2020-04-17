@@ -108,3 +108,14 @@ h, cp, p, U, mu = hg.pettitt_test(x, 0.05)
 `pyHomogeneity` wishes to maintain a positive community. Additional details can be found in the [Code of Conduct](https://github.com/mmhs013/pyHomogeneity/blob/master/CODE_OF_CONDUCT.md)
 
 
+## References
+
+1. Alexandersson, H., 1986. A homogeneity test applied to precipitation data. Journal of climatology, 6(6), pp.661-675. doi:[10.1002/joc.3370060607](https://doi.org/10.1002/joc.3370060607)
+
+2. Buishand, T.A., 1982. Some methods for testing the homogeneity of rainfall records. Journal of hydrology, 58(1-2), pp.11-27. doi:[10.1016/0022-1694(82)90066-X](https://doi.org/10.1016/0022-1694(82)90066-X)
+
+3. Pettitt, A.N., 1979. A non‐parametric approach to the change‐point problem. Journal of the Royal Statistical Society: Series C (Applied Statistics), 28(2), pp.126-135. doi:[10.2307/2346729](https://doi.org/10.2307/2346729)
+
+4. Pohlert, T., 2016. Package ‘trend’. Title Non-Parametric Trend Tests and Change-Point Detection.
+
+5. Verstraeten, G., Poesen, J., Demarée, G. and Salles, C., 2006. Long‐term (105 years) variability in rain erosivity as derived from 10‐min rainfall depth data for Ukkel (Brussels, Belgium): Implications for assessing soil erosion rates. Journal of Geophysical Research: Atmospheres, 111(D22). doi:[10.1029/2006JD007169](https://doi.org/10.1029/2006JD007169)
