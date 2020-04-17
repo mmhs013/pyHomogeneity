@@ -17,7 +17,7 @@ from collections import namedtuple
 def __preprocessing(x):
     try:
         if x.index.dtype != 'int64':
-            idx = x.index.astype('str')
+            idx = x.index.date.astype('str')
         else:
             idx = np.asarray(range(1, len(x)+1))
     except:
