@@ -182,18 +182,18 @@ def pettitt_test(x, alpha = 0.05, sim = None):
         sim: no. of monte carlo simulation for p-value calculation. If sim=None, then it calculated approx. p-value.
     Output:
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
-        loc: break point location index
+        cp: probable change point location index
         p: p-value of the significance test
         U: Maximum of Pettitt's U Statistics
-        mean: mean values at before and after break point
+        avg: mean values at before and after break point
     Examples
     --------
       >>> import pyhomogeneity as hg
       >>> x = np.random.rand(1000)
-      >>> h, loc, p, U, mu = hg.pettitt_test(x, 0.05)
+      >>> h, cp, p, U, mu = hg.pettitt_test(x, 0.05)
     """
-    res = namedtuple('Pettitt_Test', ['h', 'loc', 'p', 'U', 'mean'])
-    h, loc, p, U, mu = __test(__pettitt, x, alpha, sim)
+    res = namedtuple('Pettitt_Test', ['h', 'cp', 'p', 'U', 'avg'])
+    h, cp, p, U, mu = __test(__pettitt, x, alpha, sim)
     
     if not sim:
         x, c, idx = __preprocessing(x)
@@ -201,7 +201,7 @@ def pettitt_test(x, alpha = 0.05, sim = None):
         p = 2 * np.exp((- 6 * np.max(U)**2) / (n**3 + n**2))
         h = alpha > p
     
-    return res(h, loc, p, U, mu)
+    return res(h, cp, p, U, mu)
 
 
 def snht_test(x, alpha = 0.05, sim = 20000):
@@ -213,20 +213,20 @@ def snht_test(x, alpha = 0.05, sim = 20000):
         sim: no. of monte carlo simulation for p-value calculation.
     Output:
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
-        loc: break point location index
+        cp: probable change point location index
         p: p-value of the significance test
         T: Maximum of SNHT T Statistics
-        mean: mean values at before and after break point
+        avg: mean values at before and after break point
     Examples
     --------
       >>> import pyhomogeneity as hg
       >>> x = np.random.rand(1000)
-      >>> h, loc, p, T, mu = hg.snht_test(x, 0.05)
+      >>> h, cp, p, T, mu = hg.snht_test(x, 0.05)
     """
-    res = namedtuple('SNHT_Test', ['h', 'loc', 'p', 'T', 'mean'])
-    h, loc, p, T, mu = __test(__snht, x, alpha, sim)
+    res = namedtuple('SNHT_Test', ['h', 'cp', 'p', 'T', 'avg'])
+    h, cp, p, T, mu = __test(__snht, x, alpha, sim)
 
-    return res(h, loc, p, T, mu)
+    return res(h, cp, p, T, mu)
 
 
 def buishand_q_test(x, alpha = 0.05, sim = 20000):
@@ -238,20 +238,20 @@ def buishand_q_test(x, alpha = 0.05, sim = 20000):
         sim: no. of monte carlo simulation for p-value calculation.
     Output:
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
-        loc: break point location index
+        cp: probable change point location index
         p: p-value of the significance test
         Q: Maximum of Buishand's Q Statistics divided by squire root of sample size [Q/sqrt(n)]
-        mean: mean values at before and after break point
+        avg: mean values at before and after break point
     Examples
     --------
       >>> import pyhomogeneity as hg
       >>> x = np.random.rand(1000)
-      >>> h, loc, p, Q, mu = hg.buishand_q_test(x, 0.05)
+      >>> h, cp, p, Q, mu = hg.buishand_q_test(x, 0.05)
     """
-    res = namedtuple('Buishand_Q_Test', ['h', 'loc', 'p', 'Q', 'mean'])
-    h, loc, p, Q, mu = __test(__buishand_q, x, alpha, sim)
+    res = namedtuple('Buishand_Q_Test', ['h', 'cp', 'p', 'Q', 'avg'])
+    h, cp, p, Q, mu = __test(__buishand_q, x, alpha, sim)
 
-    return res(h, loc, p, Q, mu)
+    return res(h, cp, p, Q, mu)
 
 
 def buishand_range_test(x, alpha = 0.05, sim = 20000):
@@ -263,20 +263,20 @@ def buishand_range_test(x, alpha = 0.05, sim = 20000):
         sim: no. of monte carlo simulation for p-value calculation.
     Output:
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
-        loc: break point location index
+        cp: probable change point location index
         p: p-value of the significance test
         R: Buishand's Q Statistics range divided by squire root of sample size [R/sqrt(n)]
-        mean: mean values at before and after break point
+        avg: mean values at before and after break point
     Examples
     --------
       >>> import pyhomogeneity as hg
       >>> x = np.random.rand(1000)
-      >>> h, loc, p, R, mu = hg.buishand_range_test(x, 0.05)
+      >>> h, cp, p, R, mu = hg.buishand_range_test(x, 0.05)
     """
-    res = namedtuple('Buishand_Range_Test', ['h', 'loc', 'p', 'R', 'mean'])
-    h, loc, p, R, mu = __test(__buishand_range, x, alpha, sim)
+    res = namedtuple('Buishand_Range_Test', ['h', 'cp', 'p', 'R', 'avg'])
+    h, cp, p, R, mu = __test(__buishand_range, x, alpha, sim)
 
-    return res(h, loc, p, R, mu)
+    return res(h, cp, p, R, mu)
 
 
 def buishand_likelihood_ratio_test(x, alpha = 0.05, sim = 20000):
@@ -288,20 +288,20 @@ def buishand_likelihood_ratio_test(x, alpha = 0.05, sim = 20000):
         sim: no. of monte carlo simulation for p-value calculation.
     Output:
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
-        loc: break point location index
+        cp: probable change point location index
         p: p-value of the significance test
         V: Maximum of Buishand's weighted adjusted partial sum Z
-        mean: mean values at before and after break point
+        avg: mean values at before and after break point
     Examples
     --------
       >>> import pyhomogeneity as hg
       >>> x = np.random.rand(1000)
-      >>> h, loc, p, V, mu = hg.buishand_range_test(x, 0.05)
+      >>> h, cp, p, V, mu = hg.buishand_range_test(x, 0.05)
     """
-    res = namedtuple('Buishand_Likelihood_Ratio_Test', ['h', 'loc', 'p', 'V', 'mean'])
-    h, loc, p, V, mu = __test(__buishand_lr, x, alpha, sim)
+    res = namedtuple('Buishand_Likelihood_Ratio_Test', ['h', 'cp', 'p', 'V', 'avg'])
+    h, cp, p, V, mu = __test(__buishand_lr, x, alpha, sim)
 
-    return res(h, loc, p, V, mu)
+    return res(h, cp, p, V, mu)
 
 
 def buishand_u_test(x, alpha = 0.05, sim = 20000):
@@ -313,17 +313,17 @@ def buishand_u_test(x, alpha = 0.05, sim = 20000):
         sim: no. of monte carlo simulation for p-value calculation.
     Output:
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
-        loc: break point location index
+        cp: probable change point location index
         p: p-value of the significance test
         V: Maximum of Buishand's U Statistics
-        mean: mean values at before and after break point
+        avg: mean values at before and after break point
     Examples
     --------
       >>> import pyhomogeneity as hg
       >>> x = np.random.rand(1000)
-      >>> h, loc, p, U, mu = hg.buishand_u_test(x, 0.05)
+      >>> h, cp, p, U, mu = hg.buishand_u_test(x, 0.05)
     """
-    res = namedtuple('Buishand_U_Test', ['h', 'loc', 'p', 'U', 'mean'])
-    h, loc, p, U, mu = __test(__buishand_u, x, alpha, sim)
+    res = namedtuple('Buishand_U_Test', ['h', 'cp', 'p', 'U', 'avg'])
+    h, cp, p, U, mu = __test(__buishand_u, x, alpha, sim)
 
-    return res(h, loc, p, U, mu)
+    return res(h, cp, p, U, mu)
