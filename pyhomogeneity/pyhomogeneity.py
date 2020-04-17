@@ -185,7 +185,7 @@ def pettitt_test(x, alpha = 0.05, sim = None):
         cp: probable change point location index
         p: p-value of the significance test
         U: Maximum of Pettitt's U Statistics
-        avg: mean values at before and after break point
+        avg: mean values at before and after change point
     Examples
     --------
       >>> import pyhomogeneity as hg
@@ -216,7 +216,7 @@ def snht_test(x, alpha = 0.05, sim = 20000):
         cp: probable change point location index
         p: p-value of the significance test
         T: Maximum of SNHT T Statistics
-        avg: mean values at before and after break point
+        avg: mean values at before and after change point
     Examples
     --------
       >>> import pyhomogeneity as hg
@@ -241,7 +241,7 @@ def buishand_q_test(x, alpha = 0.05, sim = 20000):
         cp: probable change point location index
         p: p-value of the significance test
         Q: Maximum of Buishand's Q Statistics divided by squire root of sample size [Q/sqrt(n)]
-        avg: mean values at before and after break point
+        avg: mean values at before and after change point
     Examples
     --------
       >>> import pyhomogeneity as hg
@@ -266,7 +266,7 @@ def buishand_range_test(x, alpha = 0.05, sim = 20000):
         cp: probable change point location index
         p: p-value of the significance test
         R: Buishand's Q Statistics range divided by squire root of sample size [R/sqrt(n)]
-        avg: mean values at before and after break point
+        avg: mean values at before and after change point
     Examples
     --------
       >>> import pyhomogeneity as hg
@@ -291,7 +291,7 @@ def buishand_likelihood_ratio_test(x, alpha = 0.05, sim = 20000):
         cp: probable change point location index
         p: p-value of the significance test
         V: Maximum of Buishand's weighted adjusted partial sum Z
-        avg: mean values at before and after break point
+        avg: mean values at before and after change point
     Examples
     --------
       >>> import pyhomogeneity as hg
@@ -315,8 +315,8 @@ def buishand_u_test(x, alpha = 0.05, sim = 20000):
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
         cp: probable change point location index
         p: p-value of the significance test
-        V: Maximum of Buishand's U Statistics
-        avg: mean values at before and after break point
+        U: Maximum of Buishand's U Statistics
+        avg: mean values at before and after change point
     Examples
     --------
       >>> import pyhomogeneity as hg

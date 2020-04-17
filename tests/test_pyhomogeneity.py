@@ -6,27 +6,9 @@ import numpy as np
 import pyhomogeneity as hg
 
 @pytest.fixture
-def NoTrendData():
-    # Generate 360 random value with the same number
-    NoTrendData = np.ones(360)*np.random.randint(10)
-    return NoTrendData
-
-@pytest.fixture
-def NoTrend2dData():
-    # Generate 2 dimensional 360 random value with same number
-    NoTrend2dData = np.ones((360,2))*np.random.randint(10)
-    return NoTrend2dData
-    
-@pytest.fixture
-def TrendData():
-    # Generate random 360 trendy data with approx. slope 1 
-    TrendData = np.arange(360) + np.random.rand(360)
-    return TrendData
-
-@pytest.fixture
-def arbitrary_1d_data():
+def sample_data():
     # Generate arbitrary 360 data
-    arbitrary_1d_data = np.array([ 32.,  20.,  25., 189., 240., 193., 379., 278., 301.,   0.,   0.,
+    sample_data = np.array([ 32.,  20.,  25., 189., 240., 193., 379., 278., 301.,   0.,   0.,
         82.,   0.,   4.,  np.nan,  np.nan, 121., 234., 360., 262., 120.,  30.,
         11.,   1.,   7.,   3.,  31.,  31., 355., 102., 248., 274., 308.,
         np.nan,   5.,  26.,  11.,  16.,   6.,  48., 388., 539., 431., 272.,
@@ -59,58 +41,64 @@ def arbitrary_1d_data():
        474., 374., 109., 159.,   0.,   0.,   0.,   3.,   3.,  49., 205.,
        128., 194., 570., 169.,  89.,   0.,   0.,   0.,   0.,   0.,  26.,
        185., 286.,  92., 225., 244., 190.,   3.,  20.])
-    return arbitrary_1d_data
-
-@pytest.fixture
-def arbitrary_2d_data():
-    # Generate arbitrary 80, 2 dimensional data
-    arbitrary_2d_data = np.array([[ 490.,  458.], [ 540.,  469.], [ 220., 4630.], [ 390.,  321.], [ 450.,  541.],
-       [ 230., 1640.], [ 360., 1060.], [ 460.,  264.], [ 430.,  665.], [ 430.,  680.],
-       [ 620.,  650.], [ 460., np.nan], [ 450.,  380.], [ 580.,  325.], [ 350., 1020.],
-       [ 440.,  460.], [ 530.,  583.], [ 380.,  777.], [ 440., 1230.], [ 430.,  565.],
-       [ 680.,  533.], [ 250., 4930.], [np.nan, 3810.], [ 450.,  469.], [ 500.,  473.],
-       [ 510.,  593.], [ 490.,  500.], [ 700.,  266.], [ 420.,  495.], [ 710.,  245.],
-       [ 430.,  736.], [ 410.,  508.], [ 700.,  578.], [ 260., 4590.], [ 260., 4670.],
-       [ 500.,  503.], [ 450.,  469.], [ 500.,  314.], [ 620.,  432.], [ 670.,  279.],
-       [np.nan,  542.], [ 470.,  499.], [ 370.,  741.], [ 410.,  569.], [ 540.,  360.],
-       [ 550.,  513.], [ 220., 3910.], [ 460.,  364.], [ 390.,  472.], [ 550.,  245.],
-       [ 320., np.nan], [ 570.,  224.], [ 480.,  342.], [ 520.,  732.], [ 620.,  240.],
-       [ 520.,  472.], [ 430.,  679.], [ 400., 1080.], [ 430.,  920.], [ 490.,  488.],
-       [ 560., np.nan], [ 370.,  595.], [ 460.,  295.], [ 390.,  542.], [ 330., 1500.],
-       [ 350., 1080.], [ 480.,  334.], [ 390.,  423.], [ 500.,  216.], [ 410.,  366.],
-       [ 470.,  750.], [ 280., 1260.], [ 510.,  223.], [np.nan,  462.], [ 310., 7640.],
-       [ 230., 2340.], [ 470.,  239.], [ 330., 1400.], [ 320., 3070.], [ 500.,  244.]])
-    return arbitrary_2d_data
+    return sample_data
 
 
-def test_original_test(NoTrendData, TrendData, arbitrary_1d_data):
-    # check with no trend data
-    NoTrendRes = mk.original_test(NoTrendData)
-    assert NoTrendRes.trend == 'no trend'
-    assert NoTrendRes.h == False
-    assert NoTrendRes.p == 1.0
-    assert NoTrendRes.z == 0
-    assert NoTrendRes.Tau == 0.0
-    assert NoTrendRes.s == 0.0
-    assert NoTrendRes.var_s == 0.0
-    assert NoTrendRes.slope == 0.0
+def test_pettitt_test(sample_data):
+    res = hg.pettitt_test(sample_data)
+#    assert res.h == False
+    assert res.cp == 298
+#    assert res.p == 0.7332886357063501
+    assert res.U == 2716.0
+    assert res.avg.mu1 == 157.87285223367698
+    assert res.avg.mu2 == 120.93548387096774
     
-    # check with trendy data
-    TrendRes = mk.original_test(TrendData)
-    assert TrendRes.trend == 'increasing'
-    assert TrendRes.h == True
-    assert TrendRes.p == 0.0
-    assert TrendRes.Tau == 1.0
-    assert TrendRes.s == 64620.0
-    np.testing.assert_allclose(TrendRes.slope, 1.0, rtol=1e-02)
+
+def test_snht_test(sample_data):
+    res = hg.snht_test(sample_data, sim=None)
+    assert res.h == None
+    assert res.cp == 298
+    assert res.p == None
+    assert res.T == 2.4426594259172947
+    assert res.avg.mu1 == 157.87285223367698
+    assert res.avg.mu2 == 120.93548387096774
     
-    # check with arbitrary data
-    result = mk.original_test(arbitrary_1d_data)
-    assert result.trend == 'no trend'
-    assert result.h == False
-    assert result.p == 0.37591058740506833
-    assert result.z == -0.8854562842589916
-    assert result.Tau == -0.03153167653875869
-    assert result.s == -1959.0
-    assert result.var_s == 4889800.333333333
-    assert result.slope == -0.0064516129032258064
+
+def test_buishand_q_test(sample_data):
+    res = hg.buishand_q_test(sample_data, sim=None)
+    assert res.h == None
+    assert res.cp == 298
+    assert res.p == None
+    assert res.Q == 0.5955457285563376
+    assert res.avg.mu1 == 157.87285223367698
+    assert res.avg.mu2 == 120.93548387096774
+    
+    
+def test_buishand_range_test(sample_data):
+    res = hg.buishand_range_test(sample_data, sim=None)
+    assert res.h == None
+    assert res.cp == 298
+    assert res.p == None
+    assert res.R == 0.9893156056266303
+    assert res.avg.mu1 == 157.87285223367698
+    assert res.avg.mu2 == 120.93548387096774
+    
+    
+def test_buishand_likelihood_ratio_test(sample_data):
+    res = hg.buishand_likelihood_ratio_test(sample_data, sim=None)
+    assert res.h == None
+    assert res.cp == 298
+    assert res.p == None
+    assert res.V == 0.002362062633886838
+    assert res.avg.mu1 == 157.87285223367698
+    assert res.avg.mu2 == 120.93548387096774
+    
+    
+def test_buishand_u_test(sample_data):
+    res = hg.buishand_u_test(sample_data, sim=None)
+    assert res.h == None
+    assert res.cp == 298
+    assert res.p == None
+    assert res.U == 0.0644043126990563
+    assert res.avg.mu1 == 157.87285223367698
+    assert res.avg.mu2 == 120.93548387096774
