@@ -121,8 +121,8 @@ h, cp, p, U, mu = hg.pettitt_test(x, 0.05)
 
 2. Buishand, T.A., 1982. Some methods for testing the homogeneity of rainfall records. Journal of hydrology, 58(1-2), pp.11-27. doi:[10.1016/0022-1694(82)90066-X](https://doi.org/10.1016/0022-1694(82)90066-X)
 
-3. Pettitt, A.N., 1979. A non‐parametric approach to the change‐point problem. Journal of the Royal Statistical Society: Series C (Applied Statistics), 28(2), pp.126-135. doi:[10.2307/2346729](https://doi.org/10.2307/2346729)
+3. Pettitt, A.N., 1979. A non-parametric approach to the change-point problem. Journal of the Royal Statistical Society: Series C (Applied Statistics), 28(2), pp.126-135. doi:[10.2307/2346729](https://doi.org/10.2307/2346729)
 
 4. Pohlert, T., 2016. Package ‘trend’. Title Non-Parametric Trend Tests and Change-Point Detection.
 
-5. Verstraeten, G., Poesen, J., Demarée, G. and Salles, C., 2006. Long‐term (105 years) variability in rain erosivity as derived from 10‐min rainfall depth data for Ukkel (Brussels, Belgium): Implications for assessing soil erosion rates. Journal of Geophysical Research: Atmospheres, 111(D22). doi:[10.1029/2006JD007169](https://doi.org/10.1029/2006JD007169)
+5. Verstraeten, G., Poesen, J., Demarée, G. and Salles, C., 2006. Long-term (105 years) variability in rain erosivity as derived from 10-min rainfall depth data for Ukkel (Brussels, Belgium): Implications for assessing soil erosion rates. Journal of Geophysical Research: Atmospheres, 111(D22). doi:[10.1029/2006JD007169](https://doi.org/10.1029/2006JD007169)
