@@ -1,4 +1,4 @@
-# In this unit test file, we check all functions with randomly generated No trendy, trendy, arbitrary data. Those results are compared with R package - modifiedmk, fume, rkt, trend.
+# In this unit test file, we check all functions with randomly generated data. Those results are compared with known results.
 
 import os
 import pytest

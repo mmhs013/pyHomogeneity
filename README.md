@@ -1,37 +1,44 @@
 # pyHomogeneity
-A python package for homogeneity test.
-
+[![Build Status](https://travis-ci.org/mmhs013/pyHomogeneity.svg?branch=master)](https://travis-ci.org/mmhs013/pyHomogeneity)
+[![PyPI](https://img.shields.io/pypi/v/pyhomogeneity)](https://pypi.org/project/pyhomogeneity/)
+[![PyPI - License](https://img.shields.io/pypi/l/pyhomogeneity)](https://pypi.org/project/pyhomogeneity/)
+[![PyPI - Status](https://img.shields.io/pypi/status/pyhomogeneity)](https://pypi.org/project/pyhomogeneity/)
+[![Downloads](https://pepy.tech/badge/pyhomogeneity)](https://pypi.org/project/pyhomogeneity/)(https://pepy.tech/project/pyhomogeneity)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyhomogeneity)](https://pypi.org/project/pyhomogeneity/)
 
 ## What is the Homogeneity Test ?
-Currently, this package has 6 Homogeneity Tests functions. Brief description of functions are below:
+The homogeneity test is a statistical test method, that checks if two (or more) datasets come from the same distribution or not. In a time series, the homogeneity test is applied to detect one (or more) change/breakpoint in the series.  This breakpoint occurs where the data set changes its distribution. Lots of statistical analyses require a homogenous dataset. That's why it is an important test in statistical analysis.
 
-1. **Pettitt test (*pettitt_test*):** 
+`pyHomogeneity` is a pure Python implementation for the homogeneity test. There are several tests available to check the homogeneity of a time series. pyHomogeneity package can perform six commonly used Homogeneity test listed below:
 
-2. **Standard Normal Homogeinity Test (SNHT) Test (*snht_test*):** 
 
-3. **Buishand Q Test (*buishand_q_test*):**
+1. **Pettitt test (*pettitt_test*)** 
+
+2. **Standard Normal Homogeinity Test (SNHT) Test (*snht_test*)** 
+
+3. **Buishand Q Test (*buishand_q_test*)**
 
 4. **Buishand's Range Test (*buishand_range_test*):**
 
-5. **Buishand's Likelihood Ration Test (*buishand_likelihood_ratio_test*):**
+5. **Buishand's Likelihood Ration Test (*buishand_likelihood_ratio_test*)**
 
-6. **Buishand U Test (*buishand_u_test*):** 
+6. **Buishand U Test (*buishand_u_test*)** 
 
 ## Function details:
 
-All Homogeneity test functions have almost similar input parameters. Those are:
+All Homogeneity test functions have almost similar input parameters. These are:
 
-- **x**:   a vector of data
+- **x**:   a vector (list, numpy array or pandas series) data
 - **alpha**: significance level (0.05 default)
 - **sim**: No. of monte carlo simulation for p-value calculation.
 
 And all Homogeneity tests return a named tuple which contained:
 
-- **h**: True (if trend is present) or False (if trend is absence)
-- **cp**: probable change point location index
+- **h**: True (if data is nonhomogeneous) or False (if data is homogeneous)
+- **cp**: probable change point location
 - **p**: p value of the significance test
-- **U/T/Q/R/V**: Test Statistics depand of test methods
-- **avg**: mean values at before and after change point
+- **U/T/Q/R/V**: test statistics which depends on the test method
+- **avg**: mean values at before and after the change point
 
 
 ## Dependencies
@@ -72,7 +79,7 @@ pytest -v
 
 ## Usage
 
-A quick example of `pyHomogeneity` usage is given below. Several more examples are provided [here]().
+A quick example of `pyHomogeneity` usage is given below. Several more examples are provided [here](https://github.com/mmhs013/pyHomogeneity/blob/master/Examples/).
 
 ```python
 import numpy as np

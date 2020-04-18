@@ -1,6 +1,6 @@
 """
 Created on 13 April 2020
-Last Update on 16 April 2020
+Last Update on 17 April 2020
 @author: Md. Manjurul Hussain Shourov
 version: 0.1
 Approach: Vectorisation
@@ -35,7 +35,7 @@ def __preprocessing(x):
         if c == 1:
             dim = 1
             x = x.flatten()
-         
+            
     else:
         print('Please check your dataset.')
         
@@ -173,13 +173,13 @@ def __test(func, x, alpha, sim):
     return h, idx[loc-1], p, stat, mu
 
 
-def pettitt_test(x, alpha = 0.05, sim = None):
+def pettitt_test(x, alpha = 0.05, sim = 20000):
     """
     This function checks homogeneity test using A. N. Pettitt's (1979) method.
     Input:
         x: a vector (list, numpy array or pandas series) data
         alpha: significance level (0.05 default)
-        sim: no. of monte carlo simulation for p-value calculation. If sim=None, then it calculated approx. p-value.
+        sim: No. of monte carlo simulation for p-value calculation (default 20000)
     Output:
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
         cp: probable change point location index
@@ -210,7 +210,7 @@ def snht_test(x, alpha = 0.05, sim = 20000):
     Input:
         x: a vector (list, numpy array or pandas series) data
         alpha: significance level (0.05 default)
-        sim: no. of monte carlo simulation for p-value calculation.
+        sim: No. of monte carlo simulation for p-value calculation (default 20000)
     Output:
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
         cp: probable change point location index
@@ -235,7 +235,7 @@ def buishand_q_test(x, alpha = 0.05, sim = 20000):
     Input:
         x: a vector (list, numpy array or pandas series) data
         alpha: significance level (0.05 default)
-        sim: no. of monte carlo simulation for p-value calculation.
+        sim: No. of monte carlo simulation for p-value calculation (default 20000)
     Output:
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
         cp: probable change point location index
@@ -260,7 +260,7 @@ def buishand_range_test(x, alpha = 0.05, sim = 20000):
     Input:
         x: a vector (list, numpy array or pandas series) data
         alpha: significance level (0.05 default)
-        sim: no. of monte carlo simulation for p-value calculation.
+        sim: No. of monte carlo simulation for p-value calculation (default 20000)
     Output:
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
         cp: probable change point location index
@@ -285,7 +285,7 @@ def buishand_likelihood_ratio_test(x, alpha = 0.05, sim = 20000):
     Input:
         x: a vector (list, numpy array or pandas series) data
         alpha: significance level (0.05 default)
-        sim: no. of monte carlo simulation for p-value calculation.
+        sim: No. of monte carlo simulation for p-value calculation (default 20000)
     Output:
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
         cp: probable change point location index
@@ -310,7 +310,7 @@ def buishand_u_test(x, alpha = 0.05, sim = 20000):
     Input:
         x: a vector (list, numpy array or pandas series) data
         alpha: significance level (0.05 default)
-        sim: no. of monte carlo simulation for p-value calculation.
+        sim: No. of monte carlo simulation for p-value calculation (default 20000)
     Output:
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
         cp: probable change point location index
