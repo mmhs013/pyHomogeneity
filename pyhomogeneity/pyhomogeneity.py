@@ -2,7 +2,7 @@
 Created on 13 April 2020
 Last Update on 17 April 2020
 @author: Md. Manjurul Hussain Shourov
-version: 0.1
+version: 1.0
 Approach: Vectorisation
 """
 
