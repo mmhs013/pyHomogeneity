@@ -3,7 +3,7 @@
 [![PyPI](https://img.shields.io/pypi/v/pyhomogeneity)](https://pypi.org/project/pyhomogeneity/)
 [![PyPI - License](https://img.shields.io/pypi/l/pyhomogeneity)](https://pypi.org/project/pyhomogeneity/)
 [![PyPI - Status](https://img.shields.io/pypi/status/pyhomogeneity)](https://pypi.org/project/pyhomogeneity/)
-[![Downloads](https://pepy.tech/badge/pyhomogeneity)](https://pypi.org/project/pyhomogeneity/)(https://pepy.tech/project/pyhomogeneity)
+[![Downloads](https://pepy.tech/badge/pyhomogeneity)](https://pepy.tech/project/pyhomogeneity)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyhomogeneity)](https://pypi.org/project/pyhomogeneity/)
 
 ## What is the Homogeneity Test ?
