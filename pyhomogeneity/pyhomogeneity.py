@@ -118,9 +118,9 @@ def __buishand_lr(x, alpha=0.05):
     k = np.arange(1, n+1)
     S = x.cumsum() - k * x.mean()
     
-    V = S[:-1] / (x.std() * k[:-1] *(n-k[:-1]))
+    V = S[:-1] / (x.std() * (k[:-1] *(n-k[:-1]))**0.5)
     
-    return V.max(), abs(S).argmax() + 1
+    return abs(V).max(), abs(S).argmax() + 1
 
 
 # Buishad U statistics test
