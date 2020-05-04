@@ -95,12 +95,12 @@ Output are like this:
 ```python
 Pettitt_Test(h=False, cp=89, p=0.1428, U=3811.0, avg=mean(mu1=0.5487521427805625, mu2=0.46884198890609463))
 ```
-Whereas, the output is a named tuple, so you can call by name for specific result:
+Whereas, the output is a named tuple, so user can call by name for specific result:
 ```python
 print(result.cp)
 print(result.avg.mu1)
 ```
-or, you can directly unpack your results like this:
+or, user can directly unpack results like this:
 ```python
 h, cp, p, U, mu = hg.pettitt_test(x, 0.05)
 ```

@@ -1,4 +1,6 @@
-# In this unit test file, we check all functions with randomly generated data. Those results are compared with known results.
+"""In this unit test file, we check the accuracy of all functions with generated data and compare the results with known results.
+"""
+
 
 import os
 import pytest
@@ -87,9 +89,9 @@ def test_buishand_range_test(sample_data):
 def test_buishand_likelihood_ratio_test(sample_data):
     res = hg.buishand_likelihood_ratio_test(sample_data, sim=None)
     assert res.h == None
-    assert res.cp == 298
+    assert res.cp == 298c
     assert res.p == None
-    assert res.V == 0.002362062633886838
+    assert res.V == 0.08330290132452312
     assert res.avg.mu1 == 157.87285223367698
     assert res.avg.mu2 == 120.93548387096774
     

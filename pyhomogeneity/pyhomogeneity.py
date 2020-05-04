@@ -68,7 +68,7 @@ def __pettitt(x):
     
     U = 2 * s - (k + 1) * (n + 1)
     
-    return U.max(), U.argmax() + 1
+    return abs(U).max(), abs(U).argmax() + 1
 
 
 # SNHT test
@@ -184,7 +184,7 @@ def pettitt_test(x, alpha = 0.05, sim = 20000):
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
         cp: probable change point location index
         p: p-value of the significance test
-        U: Maximum of Pettitt's U Statistics
+        U: Maximum of absolute Pettitt's U Statistics
         avg: mean values at before and after change point
     Examples
     --------
@@ -198,7 +198,7 @@ def pettitt_test(x, alpha = 0.05, sim = 20000):
     if not sim:
         x, c, idx = __preprocessing(x)
         x, n, idx = __missing_values_analysis(x, idx, method = 'skip')
-        p = 2 * np.exp((- 6 * np.max(U)**2) / (n**3 + n**2))
+        p = 2 * np.exp((- 6 * U**2) / (n**3 + n**2))
         h = alpha > p
     
     return res(h, cp, p, U, mu)
@@ -240,7 +240,7 @@ def buishand_q_test(x, alpha = 0.05, sim = 20000):
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
         cp: probable change point location index
         p: p-value of the significance test
-        Q: Maximum of Buishand's Q Statistics divided by squire root of sample size [Q/sqrt(n)]
+        Q: Maximum of absolute Buishand's Q Statistics divided by squire root of sample size [Q/sqrt(n)]
         avg: mean values at before and after change point
     Examples
     --------
@@ -290,7 +290,7 @@ def buishand_likelihood_ratio_test(x, alpha = 0.05, sim = 20000):
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
         cp: probable change point location index
         p: p-value of the significance test
-        V: Maximum of Buishand's weighted adjusted partial sum Z
+        V: Maximum of absolute Buishand's weighted adjusted partial sum S
         avg: mean values at before and after change point
     Examples
     --------
@@ -315,7 +315,7 @@ def buishand_u_test(x, alpha = 0.05, sim = 20000):
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
         cp: probable change point location index
         p: p-value of the significance test
-        U: Maximum of Buishand's U Statistics
+        U: Buishand's U Statistics
         avg: mean values at before and after change point
     Examples
     --------
