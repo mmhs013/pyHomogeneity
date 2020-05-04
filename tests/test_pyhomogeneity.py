@@ -89,7 +89,7 @@ def test_buishand_range_test(sample_data):
 def test_buishand_likelihood_ratio_test(sample_data):
     res = hg.buishand_likelihood_ratio_test(sample_data, sim=None)
     assert res.h == None
-    assert res.cp == 298c
+    assert res.cp == 298
     assert res.p == None
     assert res.V == 0.08330290132452312
     assert res.avg.mu1 == 157.87285223367698
