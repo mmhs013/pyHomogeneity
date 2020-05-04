@@ -5,6 +5,7 @@
 [![PyPI - Status](https://img.shields.io/pypi/status/pyhomogeneity)](https://pypi.org/project/pyhomogeneity/)
 [![Downloads](https://pepy.tech/badge/pyhomogeneity)](https://pepy.tech/project/pyhomogeneity)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pyhomogeneity)](https://pypi.org/project/pyhomogeneity/)
+[![DOI](https://zenodo.org/badge/255952268.svg)](https://zenodo.org/badge/latestdoi/255952268)
 
 ## What is the Homogeneity Test ?
 The homogeneity test is a statistical test method, that checks if two (or more) datasets come from the same distribution or not. In a time series, the homogeneity test is applied to detect one (or more) change/breakpoint in the series.  This breakpoint occurs where the data set changes its distribution. Lots of statistical analyses require a homogenous dataset. That's why it is an important test in statistical analysis.
