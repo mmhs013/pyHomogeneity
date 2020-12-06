@@ -33,7 +33,7 @@ The homogeneity test is a statistical test method that checks if two (or more) d
 
 Python is one of the widely used tools used by the data scientist. A large number of data analysis and research tools are also developed using Python. However, till now, there is no Python package available for the homogeneity test. `pyHomogeneity` package fills this gap. It is a pure Python implementation for the homogeneity test. `pyHomogeneity` can perform six homogeneity tests (three test differenct test with four variant of Buishand's test), which are widely used in time series analysis. Available tests in `pyHomogeneity` package are briefly discussed below:
 
-**Pettitt's Test:** In 1979, [@pettitt1979non] proposed a change-point detection test based on Mann-Whitney two-sample test. This test is more sensitive to detect breaks near the middle of a time series [@Mahmud2015homo]. For the continuous dataset, Pettitt's statistics $U(k)$ can be calculated using following equation:
+**Pettitt's Test:** In 1979, Pettitt proposed a change-point detection test based on Mann-Whitney two-sample test [@pettitt1979non]. This test is more sensitive to detect breaks near the middle of a time series [@Mahmud2015homo]. For the continuous dataset, Pettitt's statistics $U(k)$ can be calculated using following equation:
 
 \begin{equation*}
 U(k) = 2 \sum_{i=1}^n r_i - k (n + 1)
@@ -45,7 +45,7 @@ Where $r_1$,  $r_2$,  $r_3$, ………, $r_n$ are the ranks of the n observation
 p = 2 \exp  \left(\frac{ -6*(\max(\lvert U(k) \rvert))^2}{n^3 +n^2} \right)
 \end{equation*}
 
-Where, the approximate probability is useful for $p ≤ 0.5$ [@pettitt1979non]. The probability or critical values for the test statistic also can be estimated by using Monte Carlo simulation.
+Where, the approximate probability is useful for $p \leq 0.5$ [@pettitt1979non]. The probability or critical values for the test statistic also can be estimated by using Monte Carlo simulation.
 
 **Standard Normal Homogeneity Test (SNHT):** Standard Normal Homogeneity Test (SNHT) is based on the Ratio Test Method [@alexandersson1986homogeneity].  This method is best suitable to detect inhomogeneity near the beginning and end of the series [@Mahmud2015homo]. The test statistic $T(k)$ is calculated by comparing the mean of the first $k$ data of the record with the last $n-k$ data as follows:
 
@@ -75,7 +75,7 @@ T_0 = max(T(k))
 
 The null hypothesis will be rejected if $T_0$ is above a certain level, which can be estimated by using Monte Carlo simulation.
 
-**Buishand's test:** [@buishand1982some] proposed a homogeneity test method based on adjusted partial sums. The Buishand's range test is best suitable for detecting breaks in the middle of a time series [@Mahmud2015homo]. The test statistics is given below:
+**Buishand's test:** Buishand proposed a homogeneity test method based on adjusted partial sums [@buishand1982some]. The Buishand's range test is best suitable for detecting breaks in the middle of a time series [@Mahmud2015homo]. The test statistics is given below:
 
 \begin{equation*}
 S(k) = \sum_{i=1}^k \frac{x_i - \bar{x}}{ \sigma}
@@ -90,13 +90,13 @@ Where,
 The maximum absulate value of $S(k)$ is referred to as the probable change-point at $k$-th data.
 [@buishand1982some] proposed four different methods to check the statistical significance of this homogeneity test. These four methods are -
 
-**_Q test:_**  In this method, calculate $Q$ as using the equation below and estimate critical values for the test statistic using the given table by [@buishand1982some] or using Monte Carlo simulation.
+**_Q test:_**  In this method, calculate $Q$ as using the equation below and estimate critical values for the test statistic using the given table by Buishand [@buishand1982some] or using Monte Carlo simulation.
 
 \begin{equation*}
 Q = \frac{ \max(S(k))}{ \sqrt{n} }
 \end{equation*}
 
-**_Range test:_** In this method, calculate the range $R$ using the equation below and estimate critical values for the test-statistic using given table by [@buishand1982some] or using Monte Carlo simulation.
+**_Range test:_** In this method, calculate the range $R$ using the equation below and estimate critical values for the test-statistic using given table by Buishand [@buishand1982some] or using Monte Carlo simulation.
 
 \begin{equation*}
 R = \frac{ \max(S(k)) - \min(S(k))}{ \sqrt{n} }
@@ -108,7 +108,7 @@ R = \frac{ \max(S(k)) - \min(S(k))}{ \sqrt{n} }
 V = \max \left( \frac{ \lvert S(k) \rvert}{ \sqrt{k(n-k)} } \right)
 \end{equation*}
 
-**_U Test:_** According to [@buishand1984tests], $U$ statistics is a robust test and good to detect change-point in middle of series. The $U$ statistics is calculated as using the equation below and estimate critical values for the test-statistic using the given table by [@buishand1982some] or using Monte Carlo simulation.
+**_U Test:_** $U$ statistics is a robust test and good to detect change-point in middle of series [@buishand1984tests]. The $U$ statistics is calculated as using the equation below and estimate critical values for the test-statistic using the given table by Buishand [@buishand1982some] or using Monte Carlo simulation.
 
 \begin{equation*}
 U = \frac{1}{n(n+1)} \sum_{i=1}^{n-1} S(k)^2
