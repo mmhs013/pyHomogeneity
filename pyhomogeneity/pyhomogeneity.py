@@ -2,7 +2,7 @@
 Created on 13 April 2020
 Last Update on 17 April 2020
 @author: Md. Manjurul Hussain Shourov
-version: 1.0
+version: 1.1
 Approach: Vectorisation
 """
 
@@ -178,14 +178,14 @@ def pettitt_test(x, alpha = 0.05, sim = 20000):
     This function checks homogeneity test using A. N. Pettitt's (1979) method.
     Input:
         x: a vector (list, numpy array or pandas series) data
-        alpha: significance level (0.05 default)
+        alpha: significance level (default 0.05)
         sim: No. of monte carlo simulation for p-value calculation (default 20000)
     Output:
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
-        cp: probable change point location index
+        cp: probable change-point location index
         p: p-value of the significance test
         U: Maximum of absolute Pettitt's U Statistics
-        avg: mean values at before and after change point
+        avg: mean values at before and after change-point
     Examples
     --------
       >>> import pyhomogeneity as hg
@@ -209,14 +209,14 @@ def snht_test(x, alpha = 0.05, sim = 20000):
     This function checks homogeneity test using H. Alexandersson (1986) method.
     Input:
         x: a vector (list, numpy array or pandas series) data
-        alpha: significance level (0.05 default)
+        alpha: significance level (default 0.05)
         sim: No. of monte carlo simulation for p-value calculation (default 20000)
     Output:
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
-        cp: probable change point location index
+        cp: probable change-point location index
         p: p-value of the significance test
         T: Maximum of SNHT T Statistics
-        avg: mean values at before and after change point
+        avg: mean values at before and after change-point
     Examples
     --------
       >>> import pyhomogeneity as hg
@@ -234,14 +234,14 @@ def buishand_q_test(x, alpha = 0.05, sim = 20000):
     This function checks homogeneity test using Buishand's Q statistics method proposed in T. A. Buishand (1982).
     Input:
         x: a vector (list, numpy array or pandas series) data
-        alpha: significance level (0.05 default)
+        alpha: significance level (default 0.05)
         sim: No. of monte carlo simulation for p-value calculation (default 20000)
     Output:
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
-        cp: probable change point location index
+        cp: probable change-point location index
         p: p-value of the significance test
         Q: Maximum of absolute Buishand's Q Statistics divided by squire root of sample size [Q/sqrt(n)]
-        avg: mean values at before and after change point
+        avg: mean values at before and after change-point
     Examples
     --------
       >>> import pyhomogeneity as hg
@@ -259,14 +259,14 @@ def buishand_range_test(x, alpha = 0.05, sim = 20000):
     This function checks homogeneity test using Buishand's range method proposed in T. A. Buishand (1982).
     Input:
         x: a vector (list, numpy array or pandas series) data
-        alpha: significance level (0.05 default)
+        alpha: significance level (default 0.05)
         sim: No. of monte carlo simulation for p-value calculation (default 20000)
     Output:
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
-        cp: probable change point location index
+        cp: probable change-point location index
         p: p-value of the significance test
         R: Buishand's Q Statistics range divided by squire root of sample size [R/sqrt(n)]
-        avg: mean values at before and after change point
+        avg: mean values at before and after change-point
     Examples
     --------
       >>> import pyhomogeneity as hg
@@ -284,14 +284,14 @@ def buishand_likelihood_ratio_test(x, alpha = 0.05, sim = 20000):
     This function checks homogeneity test using Buishand's likelihood ration method proposed in T. A. Buishand (1982).
     Input:
         x: a vector (list, numpy array or pandas series) data
-        alpha: significance level (0.05 default)
+        alpha: significance level (default 0.05)
         sim: No. of monte carlo simulation for p-value calculation (default 20000)
     Output:
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
-        cp: probable change point location index
+        cp: probable change-point location index
         p: p-value of the significance test
         V: Maximum of absolute Buishand's weighted adjusted partial sum S
-        avg: mean values at before and after change point
+        avg: mean values at before and after change-point
     Examples
     --------
       >>> import pyhomogeneity as hg
@@ -309,14 +309,14 @@ def buishand_u_test(x, alpha = 0.05, sim = 20000):
     This function checks homogeneity test using Buishand's U statistics method method proposed in T. A. Buishand (1982).
     Input:
         x: a vector (list, numpy array or pandas series) data
-        alpha: significance level (0.05 default)
+        alpha: significance level (default 0.05)
         sim: No. of monte carlo simulation for p-value calculation (default 20000)
     Output:
         h: True (if data is nonhomogeneous) or False (if data is homogeneous)
-        cp: probable change point location index
+        cp: probable change-point location index
         p: p-value of the significance test
         U: Buishand's U Statistics
-        avg: mean values at before and after change point
+        avg: mean values at before and after change-point
     Examples
     --------
       >>> import pyhomogeneity as hg

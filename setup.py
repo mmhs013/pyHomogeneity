@@ -16,6 +16,7 @@ with open("README.md", "r") as fh:
 setup(
     name = "pyhomogeneity",
     version = __version__,
+	cmdclass=versioneer.get_cmdclass(),
     author = __author__,
     author_email = __email__,
     description = ("A python package for homogeneity test."),

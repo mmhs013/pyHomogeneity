@@ -13,25 +13,25 @@ The homogeneity test is a statistical test method, that checks if two (or more) 
 `pyHomogeneity` is a pure Python implementation for the homogeneity test. There are several tests available to check the homogeneity of a time series. pyHomogeneity package can perform six commonly used Homogeneity test listed below:
 
 
-1. **Pettitt test (*pettitt_test*)** 
+1. **Pettitt's test (*pettitt_test*)** 
 
 2. **Standard Normal Homogeinity Test (SNHT) Test (*snht_test*)** 
 
-3. **Buishand Q Test (*buishand_q_test*)**
+3. **Buishand's Q Test (*buishand_q_test*)**
 
 4. **Buishand's Range Test (*buishand_range_test*):**
 
 5. **Buishand's Likelihood Ration Test (*buishand_likelihood_ratio_test*)**
 
-6. **Buishand U Test (*buishand_u_test*)** 
+6. **Buishand's U Test (*buishand_u_test*)** 
 
 ## Function details:
 
 All Homogeneity test functions have almost similar input parameters. These are:
 
 - **x**:   a vector (list, numpy array or pandas series) data
-- **alpha**: significance level (0.05 default)
-- **sim**: No. of monte carlo simulation for p-value calculation.
+- **alpha**: significance level (default 0.05)
+- **sim**: No. of monte carlo simulation for p-value calculation. (default 20000)
 
 And all Homogeneity tests return a named tuple which contained:
 
@@ -118,12 +118,16 @@ h, cp, p, U, mu = hg.pettitt_test(x, 0.05)
 
 ## References
 
-1. Alexandersson, H., 1986. A homogeneity test applied to precipitation data. Journal of climatology, 6(6), pp.661-675. doi:[10.1002/joc.3370060607](https://doi.org/10.1002/joc.3370060607)
+1. Alexandersson, H., 1986. A homogeneity test applied to precipitation data. Journal of climatology, 6(6), pp.661-675. doi: [10.1002/joc.3370060607](https://doi.org/10.1002/joc.3370060607)
 
-2. Buishand, T.A., 1982. Some methods for testing the homogeneity of rainfall records. Journal of hydrology, 58(1-2), pp.11-27. doi:[10.1016/0022-1694(82)90066-X](https://doi.org/10.1016/0022-1694(82)90066-X)
+2. Buishand, T.A., 1982. Some methods for testing the homogeneity of rainfall records. Journal of hydrology, 58(1-2), pp.11-27. doi: [10.1016/0022-1694(82)90066-X](https://doi.org/10.1016/0022-1694(82)90066-X)
 
-3. Pettitt, A.N., 1979. A non-parametric approach to the change-point problem. Journal of the Royal Statistical Society: Series C (Applied Statistics), 28(2), pp.126-135. doi:[10.2307/2346729](https://doi.org/10.2307/2346729)
+3. Buishand, T.A., 1984. Tests for detecting a shift in the mean of hydrological time series. Journal of hydrology, 73(1-2), pp.51-69. doi :[10.1016/0022-1694(84)90032-5](https://doi.org/10.1016/0022-1694(84)90032-5)
 
-4. Pohlert, T., 2016. Package 'trend'. Title Non-Parametric Trend Tests and Change-Point Detection.
+4. I. Mahmud, S. H. Bari, M. M. Hussain and M. T. Rahman (2015), Homogeneity of Rainfall and Temparature Series in Bangladesh, Proceedings of the International Conference on Climate Change and Water Security, Held in December 27, 2015, MIST, Dhaka, Bangladesh. doi: [10.13140/RG.2.1.4431.3688](https://doi.org/10.13140/RG.2.1.4431.3688)
 
-5. Verstraeten, G., Poesen, J., Demaree, G. and Salles, C., 2006. Long-term (105 years) variability in rain erosivity as derived from 10-min rainfall depth data for Ukkel (Brussels, Belgium): Implications for assessing soil erosion rates. Journal of Geophysical Research: Atmospheres, 111(D22). doi:[10.1029/2006JD007169](https://doi.org/10.1029/2006JD007169)
+5. Pettitt, A.N., 1979. A non-parametric approach to the change-point problem. Journal of the Royal Statistical Society: Series C (Applied Statistics), 28(2), pp.126-135. doi: [10.2307/2346729](https://doi.org/10.2307/2346729)
+
+6. Pohlert, T., 2016. Package 'trend'. [Title Non-Parametric Trend Tests and Change-Point Detection](https://cran.r-project.org/web/packages/trend/vignettes/trend.pdf).
+
+7. Verstraeten, G., Poesen, J., Demaree, G. and Salles, C., 2006. Long-term (105 years) variability in rain erosivity as derived from 10-min rainfall depth data for Ukkel (Brussels, Belgium): Implications for assessing soil erosion rates. Journal of Geophysical Research: Atmospheres, 111(D22). doi: [10.1029/2006JD007169](https://doi.org/10.1029/2006JD007169)

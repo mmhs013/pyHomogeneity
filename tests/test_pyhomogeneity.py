@@ -1,4 +1,4 @@
-"""In this unit test file, we check the accuracy of all functions with generated data and compare the results with known results.
+"""In this unit test file, we check the accuracy of all functions with generated data and compare the results with R package 'Trend' & 'xlstat' software package results.
 """
 
 
