@@ -28,10 +28,13 @@ date: 10 December 2020
 bibliography: paper.bib
 ---
 
-# Summary
+# Statement of need
 The homogeneity test is a statistical test method that checks if two (or more) datasets came from the same distribution or not. In the time series, the homogeneity test is applied to detect one (or more) change-point/breakpoint in the series. This breakpoint occurs where the data set changes its distribution. This  detection of distribution change makes the homogeneity test an essential test in statistical analysis. There are several tests available to check homogeneity. These tests can be performed using several commercial software packages and different programming languages. However, a single package to perform most widely used homogeneity tests will save time and bring diversity in the analysis.
 
-Python is one of the widely used tools used by the data scientist. A large number of data analysis and research tools are also developed using Python. However, till now, there is no Python package available for the homogeneity test. `pyHomogeneity` package fills this gap. It is a pure Python implementation for the homogeneity test. `pyHomogeneity` can perform six homogeneity tests (three test differenct test with four variant of Buishand's test), which are widely used in time series analysis. Available tests in `pyHomogeneity` package are briefly discussed below:
+Python is one of the widely used tools used by the data scientist. A large number of data analysis and research tools are also developed using Python. However, till now, there is no Python package available for the homogeneity test. `pyHomogeneity` package fills this gap.
+
+# Summary
+`pyHomogeneity` is a pure Python implementation for the homogeneity test. The vectorization approach is used to speed up the calculation. It can perform six homogeneity tests (three test differenct test with four variant of Buishand's test), which are widely used in time series analysis. Available tests in `pyHomogeneity` package are briefly discussed below:
 
 **Pettitt's Test:** In 1979, Pettitt proposed a change-point detection test based on Mann-Whitney two-sample test [@pettitt1979non]. This test is more sensitive to detect breaks near the middle of a time series [@Mahmud2015homo]. For the continuous dataset, Pettitt's statistics $U(k)$ can be calculated using following equation:
 
@@ -172,6 +175,6 @@ plt.savefig("F:/aaaaaa.jpg", dpi=600)
 ![Homogeneity result plot](Fig1.jpg)
 
 # Acknowledgements
-This work is done under the project _"Python packages/tools development for environmental research"._
+This work is done under the project _"[Python packages/tools development for environmental research](https://www.researchgate.net/project/Python-packages-tools-development-for-environmental-research)"._
 
 # References
