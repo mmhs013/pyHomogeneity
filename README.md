@@ -1,5 +1,5 @@
 # pyHomogeneity
-[![Build Status](https://travis-ci.org/mmhs013/pyHomogeneity.svg?branch=master)](https://travis-ci.org/mmhs013/pyHomogeneity)
+[![Build Status](https://app.travis-ci.com/mmhs013/pyHomogeneity.svg?branch=master)](https://app.travis-ci.com/github/mmhs013/pyHomogeneity)
 [![PyPI](https://img.shields.io/pypi/v/pyhomogeneity)](https://pypi.org/project/pyhomogeneity/)
 [![PyPI - License](https://img.shields.io/pypi/l/pyhomogeneity)](https://pypi.org/project/pyhomogeneity/)
 [![PyPI - Status](https://img.shields.io/pypi/status/pyhomogeneity)](https://pypi.org/project/pyhomogeneity/)

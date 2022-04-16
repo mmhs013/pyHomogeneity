@@ -8,6 +8,7 @@ __pycache__/
 
 # Development folder
 Dev/
+Paper/
 
 # Distribution / packaging
 .Python

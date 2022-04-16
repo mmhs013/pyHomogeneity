@@ -281,7 +281,7 @@ def buishand_range_test(x, alpha = 0.05, sim = 20000):
 
 def buishand_likelihood_ratio_test(x, alpha = 0.05, sim = 20000):
     """
-    This function checks homogeneity test using Buishand's likelihood ration method proposed in T. A. Buishand (1982).
+    This function checks homogeneity test using Buishand's likelihood ration method proposed in T. A. Buishand (1984).
     Input:
         x: a vector (list, numpy array or pandas series) data
         alpha: significance level (default 0.05)
@@ -306,7 +306,7 @@ def buishand_likelihood_ratio_test(x, alpha = 0.05, sim = 20000):
 
 def buishand_u_test(x, alpha = 0.05, sim = 20000):
     """
-    This function checks homogeneity test using Buishand's U statistics method method proposed in T. A. Buishand (1982).
+    This function checks homogeneity test using Buishand's U statistics method method proposed in T. A. Buishand (1984).
     Input:
         x: a vector (list, numpy array or pandas series) data
         alpha: significance level (default 0.05)
